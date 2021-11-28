@@ -1,11 +1,24 @@
-import { Box } from "@chakra-ui/react"
+import { useState } from 'react'
+import { Box, Heading, Text, Button } from '@chakra-ui/react'
 
-const Home = () => {
+export const getServerSideProps = () => {
+  return { props: { initialCount: 100 } }
+}
+
+const Home = ({ initialCount }) => {
+  console.log('Home')
+  const [count, setCount] = useState(initialCount)
+
+  const onClickCountUp = () => {
+    setCount(cnt => cnt + 1)
+  }
+  
   return (
-    <>
-      <Box p={10} bg="green" color="white">Hello</Box>
-      <p className="text-6xl font-light">Hello</p>
-    </>
+    <Box textAlign={'center'}>
+      <Heading>カウントアップ</Heading>
+      <Text>{count}</Text>
+      <Button onClick={onClickCountUp}>カウントアップ</Button>
+    </Box>
   )
 }
 
