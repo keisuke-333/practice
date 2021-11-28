@@ -1,23 +1,27 @@
 import { useState } from 'react'
-import { Box, Heading, Text, Button } from '@chakra-ui/react'
+import { Box, Button, Input } from '@chakra-ui/react'
+import ChildArea from '../components/ChildArea'
 
-export const getServerSideProps = () => {
-  return { props: { initialCount: 100 } }
-}
-
-const Home = ({ initialCount }) => {
+const Home = () => {
   console.log('Home')
-  const [count, setCount] = useState(initialCount)
 
-  const onClickCountUp = () => {
-    setCount(cnt => cnt + 1)
-  }
+  const [text, setText] = useState('')
+  const [open, setOpen] = useState(false)
+
+  const onChangeText = (e) => setText(e.target.value)
+
+  const onClickOpen = () => setOpen(bool => !bool)
   
   return (
     <Box textAlign={'center'}>
-      <Heading>カウントアップ</Heading>
-      <Text>{count}</Text>
-      <Button onClick={onClickCountUp}>カウントアップ</Button>
+      <Input
+        value={text}
+        onChange={onChangeText}
+        w={100}
+        mr={1}
+      ></Input>
+      <Button onClick={onClickOpen}>表示</Button>
+      <ChildArea open={open}></ChildArea>
     </Box>
   )
 }
