@@ -1,8 +1,8 @@
 import { memo } from 'react'
-import { Box, Text } from '@chakra-ui/react'
+import { Box, Text, Button } from '@chakra-ui/react'
 
 const ChildArea = (props) => {
-  const { open } = props
+  const { open, onClickClose } = props
   console.log('ChildArea')
 
   const data = [...Array(2000).keys()]
@@ -15,6 +15,7 @@ const ChildArea = (props) => {
       {open ? (
         <Box w="100%" h={200} bg="khaki">
           <Text>子コンポーネント</Text>
+          <Button onClick={onClickClose}>閉じる</Button>
         </Box>
       ) : null}
     </>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState, } from 'react'
 import { Box, Button, Input } from '@chakra-ui/react'
 import ChildArea from '../components/ChildArea'
 
@@ -11,6 +11,8 @@ const Home = () => {
   const onChangeText = (e) => setText(e.target.value)
 
   const onClickOpen = () => setOpen(bool => !bool)
+
+  const onClickClose = useCallback(() => setOpen(false), [setOpen])
   
   return (
     <Box textAlign={'center'}>
@@ -21,7 +23,7 @@ const Home = () => {
         mr={1}
       ></Input>
       <Button onClick={onClickOpen}>表示</Button>
-      <ChildArea open={open}></ChildArea>
+      <ChildArea open={open} onClickClose={onClickClose}></ChildArea>
     </Box>
   )
 }
