@@ -1,39 +1,8 @@
-import axios from "axios"
-import { useState } from "react"
-import { Todo } from "./Todo"
-import { TodoType } from "./types/todo"
-import { Text } from "./text"
-import { UserProfile } from "./userProfile"
-import { User } from "./types/user"
-
-const user: User = {
-  name: 'ほげほげ',
-  hobbies: ['映画', 'ゲーム']
-}
-
 const App = () => {
-  const [todos, setTodos] = useState<Array<TodoType>>([])
-
-  const onClickFethData = () => {
-    axios.get<Array<TodoType>>("https://jsonplaceholder.typicode.com/todos").then((res) => {
-      setTodos(res.data)
-    })
-  }
-
   return (
-    <div>
-      <UserProfile user={user} />
-      <Text color="red" fontSize="33px" />
-      <button onClick={onClickFethData}>データ取得</button>
-      {todos.map((todo:any) => (
-        <Todo
-          key={todo.id}
-          title={todo.title}
-          userId={todo.userId}
-          completed={todo.completed}
-        />
-      ))}
-    </div>
+    <>
+      <p>テストテストテスト</p>
+    </>
   )
 }
 
