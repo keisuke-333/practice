@@ -2,6 +2,7 @@ import axios from "axios"
 import { useState } from "react"
 import { Todo } from "./Todo"
 import { TodoType } from "./types/todo"
+import { Text } from "./text"
 
 const App = () => {
   const [todos, setTodos] = useState<Array<TodoType>>([])
@@ -11,8 +12,10 @@ const App = () => {
       setTodos(res.data)
     })
   }
+
   return (
     <div>
+      <Text color="red" fontSize="33px" />
       <button onClick={onClickFethData}>データ取得</button>
       {todos.map((todo:any) => (
         <Todo
