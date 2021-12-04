@@ -1,13 +1,7 @@
 import axios from "axios"
 import { useState } from "react"
 import { Todo } from "./Todo"
-
-type TodoType = {
-  userId: number
-  id: number
-  title: string
-  completed: boolean
-}
+import { TodoType } from "./types/todo"
 
 const App = () => {
   const [todos, setTodos] = useState<Array<TodoType>>([])
@@ -22,6 +16,7 @@ const App = () => {
       <button onClick={onClickFethData}>データ取得</button>
       {todos.map((todo:any) => (
         <Todo
+          key={todo.id}
           title={todo.title}
           userId={todo.userId}
           completed={todo.completed}
