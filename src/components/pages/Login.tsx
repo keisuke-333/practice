@@ -7,8 +7,9 @@ import {
   Input,
   Stack
 } from "@chakra-ui/react";
-import { PrimaryButton } from "../atoms/button/PrimaryButton";
+
 import { useAuth } from "../../hooks/useAuth";
+import { PrimaryButton } from "../atoms/button/PrimaryButton";
 
 export const Login: VFC = memo(() => {
   const [userId, setUserId] = useState('')
