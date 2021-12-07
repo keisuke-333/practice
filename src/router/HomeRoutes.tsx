@@ -1,5 +1,5 @@
 import { Home } from "../components/pages/Home";
-import { UserManagement } from "../components/UserManagement";
+import { UserManagement } from "../components/pages/UserManagement";
 import { Setting } from "../components/pages/Setting";
 import { Page404 } from "../components/pages/Page404";
 
