@@ -1,16 +1,7 @@
 import { useState, useEffect } from 'react'
-import gql from 'graphql-tag'
 
 import client from './client'
-
-const ME = gql`
-  query me {
-    user(login: "keisuke-333") {
-      name
-      avatarUrl
-    }
-  }
-`
+import { ME } from './graphql'
 
 type FetchData = {
   name: string
