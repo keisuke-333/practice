@@ -34,7 +34,13 @@ const App = () => {
   return (
     <>
       <p>{userData?.name}</p>
-      <p>{userData?.avatarUrl}</p>
+      <a
+        href={userData?.avatarUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        アイコン画像
+      </a>
     </>
   )
 }
