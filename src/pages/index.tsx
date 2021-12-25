@@ -1,4 +1,4 @@
-import type { NextPage, GetStaticProps } from 'next'
+import type { NextPage, GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { gql } from "@apollo/client"
@@ -61,7 +61,7 @@ const Home: NextPage<Props> = ({ countries }) => {
   )
 }
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
     const { data } = await client.query({
       query: gql`
         query Countries {
