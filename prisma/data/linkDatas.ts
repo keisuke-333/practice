@@ -1,4 +1,4 @@
-export const links = [
+export const linkDatas = [
   {
     category: 'Open Source',
     description: 'Fullstack React framework',
