@@ -1,14 +1,17 @@
 import type { AppProps } from 'next/app'
 import { ApolloProvider } from '@apollo/client'
+import 'tailwindcss/tailwind.css'
 
-import client from '../libs/apollo/client'
-import '../../styles/globals.css'
+import apolloClient from '../libs/apollo'
+import Layout from '../components/Layout'
 
-function MyApp({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <ApolloProvider client={client}>
-      <Component {...pageProps} />
-    </ApolloProvider>
+     <ApolloProvider client={apolloClient}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+     </ApolloProvider>
   )
 }
-export default MyApp
+export default App
