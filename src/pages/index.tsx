@@ -1,27 +1,41 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { gql, useQuery } from '@apollo/client'
+import { gql, useQuery, useMutation } from '@apollo/client'
 
 import { AwesomeLink } from '../components/AwesomeLink'
 
 const AllLinksQuery = gql`
-  query {
-    links {
-      id
-      title
-      url
-      description
-      imageUrl
-      category
+  query allLinksQuery($first: Int, $after: String) {
+    links(first: $first, after: $after) {
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+      edges {
+        cursor
+        node {
+          index
+          imageUrl
+          url
+          title
+          category
+          description
+          id
+        }
+      }
     }
   }
 `
 
 const IndexPage: NextPage = () => {
-   const { data, loading, error } = useQuery(AllLinksQuery)
+   const { data, loading, error, fetchMore } = useQuery(AllLinksQuery, {
+    variables: { first: 2 },
+  })
 
   if (loading) return <p>Loading...</p>
   if (error) return <p>Oh no... {error.message}</p>
+
+  const { endCursor, hasNextPage } = data.links.pageInfo
 
   return (
     <>
@@ -30,19 +44,41 @@ const IndexPage: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="container mx-auto max-w-5xl my-20">
-        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {data?.links.map((link) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {data?.links.edges.map(({ node }) => (
             <AwesomeLink
-              key={link.id}
-              id={link.id}
-              title={link.title}
-              description={link.description}
-              url={link.url}
-              imageUrl={link.imageUrl}
-              category={link.category}
+              title={node.title}
+              category={node.category}
+              url={node.url}
+              id={node.id}
+              description={node.description}
+              imageUrl={node.imageUrl}
             />
           ))}
-        </ul>
+        </div>
+        {hasNextPage ? (
+          <button
+            className="px-4 py-2 bg-blue-500 text-white rounded my-10"
+            onClick={() => {
+              fetchMore({
+                variables: { after: endCursor },
+                updateQuery: (prevResult, { fetchMoreResult }) => {
+                  fetchMoreResult.links.edges = [
+                    ...prevResult.links.edges,
+                    ...fetchMoreResult.links.edges,
+                  ];
+                  return fetchMoreResult;
+                },
+              });
+            }}
+          >
+            more
+          </button>
+        ) : (
+          <p className="my-10 text-center font-medium">
+            You've reached the end!{" "}
+          </p>
+        )}
       </div>
     </>
   )
