@@ -1,4 +1,3 @@
-import { VFC } from 'react'
 import { NextPage } from 'next'
 import Link from 'next/link'
 import { useQuery } from '@apollo/client'
@@ -8,7 +7,7 @@ import { GetUsersQuery } from '../../types/generated/graphql'
 import { Layout } from '../components/Layout'
 
 const HasuraMainPage: NextPage = () => {
-  const { data, loading, error } = useQuery<GetUsersQuery>(GET_USERS)
+  const { data, loading, error } = useQuery<GetUsersQuery>(GET_USERS, { fetchPolicy: "network-only" })
 
   if (loading) {
     return (
@@ -29,7 +28,6 @@ const HasuraMainPage: NextPage = () => {
   return (
     <Layout title="Hasura fetchPolicy">
       <p className="mb-6 font-bold">Hasura main page</p>
-      {console.log(data)}
       {data?.users.map((user) => (
         <p
           className="my-1"
