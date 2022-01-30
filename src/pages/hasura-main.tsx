@@ -7,7 +7,12 @@ import { GetUsersQuery } from '../../types/generated/graphql'
 import { Layout } from '../components/Layout'
 
 const HasuraMainPage: NextPage = () => {
-  const { data, loading, error } = useQuery<GetUsersQuery>(GET_USERS, { fetchPolicy: "network-only" })
+  const { data, loading, error } = useQuery<GetUsersQuery>(GET_USERS, {
+    // fetchPolicy: "network-only",
+    fetchPolicy: "cache-and-network",
+    // fetchPolicy: "cache-first",  これがデフォルト
+    // fetchPolicy: "no-cache",
+  })
 
   if (loading) {
     return (
