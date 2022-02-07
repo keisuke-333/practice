@@ -1,8 +1,14 @@
 module.exports = {
   mode: 'jit',
-  content: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
+  content: [
+    './src/pages/**/*.{js,ts,jsx,tsx}',
+    './src/components/**/*.{js,ts,jsx,tsx}',
+  ],
   theme: {
     extend: {},
   },
-  plugins: [require('@tailwindcss/typography'), require('@tailwindcss/forms')],
+  variants: {
+    extend: { opacity: ['disabled'] },
+  },
+  plugins: [],
 }
