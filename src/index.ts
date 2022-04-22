@@ -1,10 +1,10 @@
 import * as http from 'http'
+import { getProducts } from './controllers/productController'
 import products from './data/products.json'
 
 const server = http.createServer((req, res) => {
   if (req.url === '/api/products' && req.method === 'GET') {
-    res.writeHead(200, { 'Content-Type': 'application/json' })
-    res.end(JSON.stringify(products))
+    getProducts(req, res)
   } else {
     res.writeHead(404, { 'Content-Type': 'application/json' })
     res.end(JSON.stringify({ message: 'Route Not Found' }))
