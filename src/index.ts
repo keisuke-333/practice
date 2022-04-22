@@ -1,10 +1,9 @@
 import * as http from 'http'
+import products from './data/products.json'
 
 const server = http.createServer((req, res) => {
-  res.statusCode = 200
-  res.setHeader('Content-Type', 'text/html')
-  res.write('<h1>Hello World</h1>')
-  res.end()
+  res.writeHead(200, { 'Content-Type': 'application/json' })
+  res.end(JSON.stringify(products))
 })
 
 const PORT = process.env.PORT || 3000
