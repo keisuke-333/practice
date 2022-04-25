@@ -32,3 +32,21 @@ export const getProduct = async (
     console.log(error)
   }
 }
+
+export const createProduct = async (
+  req: IncomingMessage,
+  res: ServerResponse
+) => {
+  try {
+    const product = {
+      name: 'Test Product',
+      description: 'This is my product',
+      price: 100,
+    }
+    const newProduct = await Product.create(product)
+    res.writeHead(201, { 'Content-Type': 'application/json' })
+    res.end(JSON.stringify(newProduct))
+  } catch (error) {
+    console.log(error)
+  }
+}
