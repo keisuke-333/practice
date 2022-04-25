@@ -5,3 +5,10 @@ export const findAll = () => {
     resolve(products)
   })
 }
+
+export const findById = (id: string) => {
+  return new Promise((resolve, reject) => {
+    const product = products.find((p) => p.id === id)
+    resolve(product)
+  })
+}
