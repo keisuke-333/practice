@@ -33,3 +33,11 @@ export const update = (id: string, product: Omit<ProductType, 'id'>) => {
     resolve(products[index])
   })
 }
+
+export const remove = (id: string) => {
+  return new Promise((resolve, reject) => {
+    const Products = products.filter((p) => p.id !== id)
+    writeDataToFile('src/data/products.json', Products)
+    resolve(products)
+  })
+}

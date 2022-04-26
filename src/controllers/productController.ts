@@ -80,3 +80,23 @@ export const updateProduct = async (
     console.log(error)
   }
 }
+
+export const deleteProduct = async (
+  req: IncomingMessage,
+  res: ServerResponse,
+  id: string
+) => {
+  try {
+    const product = await Product.findById(id)
+    if (!product) {
+      res.writeHead(404, { 'Content-Type': 'application/json' })
+      res.end(JSON.stringify({ message: 'Product Not Found' }))
+    } else {
+      await Product.remove(id)
+      res.writeHead(200, { 'Content-Type': 'application/json' })
+      res.end(JSON.stringify({ message: `Product ${id} removed` }))
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
