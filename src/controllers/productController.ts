@@ -1,5 +1,6 @@
 import { IncomingMessage, ServerResponse } from 'http'
 import * as Product from '../models/productModel'
+import { getPostData } from '../utils'
 
 export const getProducts = async (
   req: IncomingMessage,
@@ -38,10 +39,12 @@ export const createProduct = async (
   res: ServerResponse
 ) => {
   try {
+    const body = await getPostData(req)
+    const { name, description, price } = JSON.parse(body)
     const product = {
-      name: 'Test Product',
-      description: 'This is my product',
-      price: 100,
+      name,
+      description,
+      price,
     }
     const newProduct = await Product.create(product)
     res.writeHead(201, { 'Content-Type': 'application/json' })
