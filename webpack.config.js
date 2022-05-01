@@ -8,6 +8,7 @@ module.exports = {
       keep: /index.html/,
     }
   },
+  devtool: "hidden-source-map",
   mode: "development",
   devServer: {
     static: "dist",
