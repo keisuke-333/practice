@@ -10,23 +10,23 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/index.js":
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
+/***/ "./index.js":
+/*!******************!*\
+  !*** ./index.js ***!
+  \******************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sub_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sub.js */ \"./src/sub.js\");\n\n\n(0,_sub_js__WEBPACK_IMPORTED_MODULE_0__.hello)(\"hello world\")\n\n//# sourceURL=webpack://practice/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sub_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sub.js */ \"./sub.js\");\n\n\n(0,_sub_js__WEBPACK_IMPORTED_MODULE_0__.hello)(\"hello world\")\n\n//# sourceURL=webpack:///./index.js?");
 
 /***/ }),
 
-/***/ "./src/sub.js":
-/*!********************!*\
-  !*** ./src/sub.js ***!
-  \********************/
+/***/ "./sub.js":
+/*!****************!*\
+  !*** ./sub.js ***!
+  \****************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"hello\": () => (/* binding */ hello)\n/* harmony export */ });\nconst hello = (text) => {\n  alert(text)\n}\n\n//# sourceURL=webpack://practice/./src/sub.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"hello\": () => (/* binding */ hello)\n/* harmony export */ });\nconst hello = (text) => {\n  alert(text)\n}\n\n//# sourceURL=webpack:///./sub.js?");
 
 /***/ })
 
@@ -90,7 +90,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./index.js");
 /******/ 	
 /******/ })()
 ;
