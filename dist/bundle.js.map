@@ -1,0 +1,1 @@
+{"version":3,"file":"./bundle.js","mappings":";;;;;;;AAAA,uB;;;;;;;;ACAA,sB;;;;;;;;ACAA,sB","sources":["webpack:///./index.js","webpack:///./sub1.js","webpack:///./sub2.js"],"sourcesContent":["console.log('index.js')","console.log('sub1.js')","console.log('sub2.js')"],"names":[],"sourceRoot":""}

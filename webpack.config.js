@@ -2,10 +2,10 @@ const path = require('path')
 
 module.exports = {
   context: path.join(__dirname, 'src'),
-  entry: "./index.js",
+  entry: ["./index.js", "./sub1.js", "./sub2.js"],
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: "./assets/js/main.js",
+    filename: "./bundle.js",
     clean: {
       keep: /index.html/,
     }
