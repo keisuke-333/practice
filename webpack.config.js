@@ -4,5 +4,9 @@ module.exports = {
     path: `${__dirname}/dist`,
     filename: "bundle.js"
   },
-  mode: "development"
+  mode: "development",
+  devServer: {
+    static: "dist",
+    open: true
+  }
 }
