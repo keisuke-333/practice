@@ -3,7 +3,10 @@ module.exports = {
   entry: "./index.js",
   output: {
     path: `${__dirname}/dist`,
-    filename: "bundle.js"
+    filename: "./assets/js/main.js",
+    clean: {
+      keep: /index.html/,
+    }
   },
   mode: "development",
   devServer: {
