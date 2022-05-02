@@ -4,24 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn src/index.ts",
-    "build": "tsc -p tsconfig.json",
-    "start": "node dist/index.js",
-    "format": "prettier --write $PWD/'src/**/*.{js,ts}'",
-    "lint": "eslint 'src/**/*.{js,ts}'",
-    "clean": "rm -rf dist"
+    "build": "webpack",
+    "start": "webpack server",
+    "watch": "webpack --watch"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^17.0.25",
-    "@types/uuid": "^8.3.4",
-    "ts-node": "^10.7.0",
-    "ts-node-dev": "^1.1.8",
-    "typescript": "^4.6.3"
-  },
-  "dependencies": {
-    "uuid": "^8.3.2"
+    "css-loader": "^6.7.1",
+    "mini-css-extract-plugin": "^2.6.0",
+    "node-sass": "^7.0.1",
+    "sass-loader": "^12.6.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.8.1"
   }
 }
