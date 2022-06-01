@@ -1,22 +1,33 @@
 {
   "name": "practice",
   "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "build": "webpack",
-    "start": "webpack server",
-    "watch": "webpack --watch"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "license": "ISC",
+  "dependencies": {
+    "@heroicons/react": "^1.0.6",
+    "@supabase/supabase-js": "^1.35.3",
+    "next": "12.1.6",
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
+    "react-query": "^3.39.1",
+    "zustand": "^4.0.0-rc.1"
+  },
   "devDependencies": {
-    "css-loader": "^6.7.1",
-    "mini-css-extract-plugin": "^2.6.0",
-    "node-sass": "^7.0.1",
-    "sass-loader": "^12.6.0",
-    "style-loader": "^3.3.1",
-    "webpack": "^5.72.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.8.1"
+    "@types/node": "17.0.38",
+    "@types/react": "18.0.10",
+    "@types/react-dom": "18.0.5",
+    "autoprefixer": "^10.4.7",
+    "eslint": "8.16.0",
+    "eslint-config-next": "12.1.6",
+    "postcss": "^8.4.14",
+    "prettier": "^2.6.2",
+    "prettier-plugin-tailwindcss": "^0.1.11",
+    "tailwindcss": "^3.0.24",
+    "typescript": "4.7.2"
   }
 }
