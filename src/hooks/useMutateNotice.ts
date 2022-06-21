@@ -18,7 +18,7 @@ export const useMutateNotice = () => {
       onSuccess: (res) => {
         const previousNotices = queryClient.getQueryData<Notice[]>('notices')
         if (previousNotices) {
-          queryClient.setQueryData('todos', [...previousNotices, res[0]])
+          queryClient.setQueryData('notices', [...previousNotices, res[0]])
         }
         reset()
       },
@@ -33,7 +33,7 @@ export const useMutateNotice = () => {
     async (notice: EditedNotice) => {
       const { data, error } = await supabase
         .from('notices')
-        .update({ title: notice.content })
+        .update({ content: notice.content })
         .eq('id', notice.id)
       if (error) throw new Error(error.message)
       return data
