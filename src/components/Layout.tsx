@@ -7,11 +7,13 @@ type Title = {
   children: ReactNode
 }
 
-export const Layout: FC<Title> = ({ children, title = 'Todo app' }) => {
+const Layout: FC<Title> = ({ children, title = 'Note app' }) => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center font-mono text-gray-800">
       <Head>
-        <title>{title}</title>
+        <title>{title}</title>\
+        <meta name="description" content="Note App" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <header></header>
       <main className="flex w-screen flex-1 flex-col items-center justify-center">
@@ -23,3 +25,5 @@ export const Layout: FC<Title> = ({ children, title = 'Todo app' }) => {
     </div>
   )
 }
+
+export default Layout
