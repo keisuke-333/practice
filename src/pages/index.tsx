@@ -2,7 +2,7 @@ import { FormEvent, useState } from 'react'
 import type { NextPage } from 'next'
 import { BadgeCheckIcon, ShieldCheckIcon } from '@heroicons/react/solid'
 
-import { useMutateAuth } from '../hooks/useMutateAuth'
+import useMutateAuth from '../hooks/useMutateAuth'
 import Layout from '../components/Layout'
 
 const AuthPage: NextPage = () => {

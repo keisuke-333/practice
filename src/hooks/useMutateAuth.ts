@@ -3,7 +3,7 @@ import { useMutation } from 'react-query'
 
 import { supabase } from '../utils/supabase'
 
-export const useMutateAuth = () => {
+const useMutateAuth = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const reset = () => {
@@ -43,3 +43,5 @@ export const useMutateAuth = () => {
     registerMutation,
   }
 }
+
+export default useMutateAuth
