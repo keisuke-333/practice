@@ -29,7 +29,7 @@ const useMutateNote = () => {
     async (note: EditedNote) => {
       const { data, error } = await supabase
         .from('notes')
-        .update({ tite: note.title, content: note.content })
+        .update({ title: note.title, content: note.content })
         .eq('id', note.id)
       if (error) throw new Error(error?.message)
       return data
@@ -54,7 +54,7 @@ const useMutateNote = () => {
       return data
     },
     {
-      onSuccess: () => {
+      onSuccess: (res) => {
         revalidateList()
         reset()
         alert('Successfully completed !!')
