@@ -15,7 +15,7 @@ const useMutateNote = () => {
     },
     {
       onSuccess: () => {
-        revalidateList()
+        // revalidateList()
         reset()
         alert('Successfully completed !!')
       },
@@ -36,7 +36,7 @@ const useMutateNote = () => {
     },
     {
       onSuccess: (res) => {
-        revalidateList()
+        // revalidateList()
         revalidateSingle(res[0].id)
         reset()
         alert('Successfully completed !!')
@@ -55,7 +55,7 @@ const useMutateNote = () => {
     },
     {
       onSuccess: (res) => {
-        revalidateList()
+        // revalidateList()
         reset()
         alert('Successfully completed !!')
       },
