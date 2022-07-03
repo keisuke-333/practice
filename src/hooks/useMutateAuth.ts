@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useMutation } from 'react-query'
-
 import { supabase } from 'libs/supabase/client'
 
 export const useMutateAuth = () => {
