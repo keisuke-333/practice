@@ -2,7 +2,7 @@ import { FormEvent, FC, memo } from 'react'
 import useStore from 'libs/zustand/store'
 import { useMutateNotice } from 'hooks/useMutateNotice'
 
-export const NoticeFormMemo: FC = () => {
+const NoticeForm: FC = () => {
   const session = useStore((state) => state.session)
   const editedNotice = useStore((state) => state.editedNotice)
   const update = useStore((state) => state.updatedEditedNotice)
@@ -48,4 +48,4 @@ export const NoticeFormMemo: FC = () => {
   )
 }
 
-export const NoticeForm = memo(NoticeFormMemo)
+export default memo(NoticeForm)
