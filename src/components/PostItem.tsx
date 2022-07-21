@@ -85,6 +85,8 @@ const PostItem: FC<Omit<Post, 'created_at'>> = ({
               height={220}
             />
           )}
+        </div>
+        <div className="my-3 flex justify-center">
           {(isLoadingAvatar || isLoadingPost) && <Spinner />}
         </div>
       </li>
