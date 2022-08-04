@@ -1,36 +1,53 @@
-import { FC, useEffect, useState } from 'react'
-import { PencilAltIcon, TrashIcon } from '@heroicons/react/solid'
+import { FC, Dispatch, SetStateAction, memo } from 'react'
+import Image from 'next/image'
+import {
+  PencilAltIcon,
+  TrashIcon,
+  UserCircleIcon,
+} from '@heroicons/react/solid'
+import useStore from 'libs/zustand/store'
+import { EditedComment } from 'types'
+import { useQueryAvatar } from 'hooks/useQueryAvatar'
+import { useMutateComment } from 'hooks/useMutateComment'
+import { useDownloadUrl } from 'hooks/useDownloadUrl'
 
-import { supabase } from '../utils/supabase'
-import useStore from '../libs/store'
-import useMutateComment from '../hooks/useMutateComment'
-import Spiner from './Spiner'
-import { Comment } from '../types/types'
+type Props = {
+  id: string
+  comment: string
+  user_id: string | undefined
+  setEditedComment: Dispatch<SetStateAction<EditedComment>>
+}
 
-const CommentItem: FC<Omit<Comment, 'created_at' | 'note_id'>> = ({
-  id,
-  content,
-  user_id,
-}) => {
-  const [userId, setUserId] = useState<string | undefined>('')
-  const update = useStore((state) => state.updateEditedComment)
+const CommentItem: FC<Props> = ({ id, comment, user_id, setEditedComment }) => {
+  const session = useStore((state) => state.session)
+  const { data } = useQueryAvatar(user_id)
   const { deleteCommentMutation } = useMutateComment()
-  useEffect(() => {
-    setUserId(supabase.auth.user()?.id)
-  }, [])
-  if (deleteCommentMutation.isLoading) {
-    return <Spiner />
-  }
+  const { fullUrl: avatarUrl } = useDownloadUrl(data?.avatar_url, 'avatars')
   return (
-    <li className="my-3">
-      <span>{content}</span>
-      {userId === user_id && (
-        <div className="float-right ml-20 flex">
+    <li className="my-3 flex items-center justify-between">
+      <div className="flex">
+        {avatarUrl ? (
+          <Image
+            src={avatarUrl}
+            alt="avatar"
+            className="rounded-full"
+            width={25}
+            height={25}
+          />
+        ) : (
+          <UserCircleIcon className="inline-block h-8 w-8 cursor-pointer text-gray-500" />
+        )}
+        <span className="mx-1 text-sm">{comment}</span>
+      </div>
+      {session?.user?.id === user_id && (
+        <div className="flex">
           <PencilAltIcon
-            className="mx-1 h-5 w-5 cursor-pointer text-blue-500"
-            onClick={() => update({ id, content })}
+            data-testid="pencil-comment"
+            className="h-5 w-5 cursor-pointer text-blue-500"
+            onClick={() => setEditedComment({ id: id, comment: comment })}
           />
           <TrashIcon
+            data-testid="trash-comment"
             className="h-5 w-5 cursor-pointer text-blue-500"
             onClick={() => deleteCommentMutation.mutate(id)}
           />
@@ -40,4 +57,4 @@ const CommentItem: FC<Omit<Comment, 'created_at' | 'note_id'>> = ({
   )
 }
 
-export default CommentItem
+export default memo(CommentItem)

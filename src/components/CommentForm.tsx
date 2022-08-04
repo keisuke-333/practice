@@ -1,49 +1,64 @@
-import { FC, FormEvent } from 'react'
+import { Dispatch, FC, FormEvent, memo, SetStateAction } from 'react'
+import { MailIcon } from '@heroicons/react/solid'
+import useStore from 'libs/zustand/store'
+import { EditedComment } from 'types'
+import { useMutateComment } from 'hooks/useMutateComment'
 
-import { supabase } from '../utils/supabase'
-import useStore from '../libs/store'
-import useMutateComment from '../hooks/useMutateComment'
-import Spiner from './Spiner'
+type Props = {
+  postId: string
+  editedComment: EditedComment
+  setEditedComment: Dispatch<SetStateAction<EditedComment>>
+}
 
-const CommentForm: FC<{ noteId: string }> = ({ noteId }) => {
-  const { editedComment } = useStore()
-  const update = useStore((state) => state.updateEditedComment)
+const CommentForm: FC<Props> = ({
+  postId,
+  editedComment,
+  setEditedComment,
+}) => {
+  const session = useStore((state) => state.session)
   const { createCommentMutation, updateCommentMutation } = useMutateComment()
-  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     if (editedComment.id === '') {
-      createCommentMutation.mutate({
-        content: editedComment.content,
-        user_id: supabase.auth.user()?.id,
-        note_id: noteId,
+      await createCommentMutation.mutateAsync({
+        comment: editedComment.comment,
+        user_id: session?.user?.id,
+        post_id: postId,
       })
+      setEditedComment({ id: '', comment: '' })
     } else {
-      updateCommentMutation.mutate({
+      await updateCommentMutation.mutateAsync({
         id: editedComment.id,
-        content: editedComment.content,
+        comment: editedComment.comment,
       })
+      setEditedComment({ id: '', comment: '' })
     }
-  }
-  if (updateCommentMutation.isLoading || createCommentMutation.isLoading) {
-    return <Spiner />
   }
   return (
     <form onSubmit={submitHandler}>
-      <input
-        type="text"
-        className="my-2 rounded border border-gray-300 px-3 py-2 text-sm placeholder-gray-500 focus:border-indigo-500 focus:outline-none"
-        placeholder="new comment"
-        value={editedComment.content}
-        onChange={(e) => update({ ...editedComment, content: e.target.value })}
-      />
-      <button
-        type="submit"
-        className="hover:gb-indigo-700 ml-2 rounded bg-indigo-600 px-3 py-2 text-sm font-medium text-white"
-      >
-        {editedComment.id ? 'Update' : 'send'}
-      </button>
+      <div className="flex items-center justify-center">
+        <input
+          type="text"
+          className="my-2 rounded border border-gray-300 px-3 py-2 text-sm focus:outline-none"
+          placeholder="New comment ?"
+          value={editedComment.comment}
+          onChange={(e) =>
+            setEditedComment({ ...editedComment, comment: e.target.value })
+          }
+        />
+        <button
+          data-testid="btn-comment"
+          type="submit"
+          disabled={!editedComment.comment}
+        >
+          <MailIcon
+            className={`ml-3 h-6 w-6 cursor-pointer ${
+              editedComment.comment ? 'text-indigo-500' : 'text-gray-500'
+            }`}
+          />
+        </button>
+      </div>
     </form>
   )
 }
 
-export default CommentForm
+export default memo(CommentForm)

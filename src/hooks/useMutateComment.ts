@@ -1,27 +1,17 @@
 import { useMutation } from 'react-query'
+import { supabase } from 'libs/supabase/client'
+import { Comment, EditedComment } from 'types'
 
-import { supabase } from '../utils/supabase'
-import useStore from '../libs/store'
-import { revalidateSingle } from '../utils/revalidation'
-import { Comment, EditedComment } from '../types/types'
-
-const useMutateComment = () => {
-  const reset = useStore((state) => state.resetEditedComment)
+export const useMutateComment = () => {
   const createCommentMutation = useMutation(
-    async (comment: Omit<Comment, 'created_at' | 'id'>) => {
+    async (comment: Omit<Comment, 'id' | 'created_at'>) => {
       const { data, error } = await supabase.from('comments').insert(comment)
       if (error) throw new Error(error.message)
       return data
     },
     {
-      onSuccess: (res) => {
-        revalidateSingle(res[0].note_id)
-        reset()
-        alert('Successfully completed !!')
-      },
       onError: (err: any) => {
         alert(err.message)
-        reset()
       },
     }
   )
@@ -29,20 +19,14 @@ const useMutateComment = () => {
     async (comment: EditedComment) => {
       const { data, error } = await supabase
         .from('comments')
-        .update({ content: comment.content })
+        .update({ comment: comment.comment })
         .eq('id', comment.id)
-      if (error) throw new Error(error?.message)
+      if (error) throw new Error(error.message)
       return data
     },
     {
-      onSuccess: (res) => {
-        revalidateSingle(res[0].note_id)
-        reset()
-        alert('Successfully completed !!')
-      },
       onError: (err: any) => {
         alert(err.message)
-        reset()
       },
     }
   )
@@ -56,18 +40,10 @@ const useMutateComment = () => {
       return data
     },
     {
-      onSuccess: (res) => {
-        revalidateSingle(res[0].note_id)
-        reset()
-        alert('Successfully completed !!')
-      },
       onError: (err: any) => {
         alert(err.message)
-        reset()
       },
     }
   )
   return { createCommentMutation, updateCommentMutation, deleteCommentMutation }
 }
-
-export default useMutateComment
