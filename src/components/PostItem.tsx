@@ -5,8 +5,8 @@ import {
   TrashIcon,
   ExclamationCircleIcon,
   UserCircleIcon,
+  ChatAlt2Icon,
 } from '@heroicons/react/solid'
-import ChatAlt2Icon from '@heroicons/react/solid'
 import { ErrorBoundary } from 'react-error-boundary'
 import { Spinner } from './Spinner'
 import Comments from './Comments'
@@ -22,6 +22,7 @@ const PostItem: FC<Omit<Post, 'created_at'>> = ({
   post_url,
   user_id,
 }) => {
+  const [openComments, setOpenComments] = useState(false)
   const session = useStore((state) => state.session)
   const update = useStore((state) => state.updateEditedPost)
   const { data } = useQueryAvatar(user_id)
@@ -90,6 +91,30 @@ const PostItem: FC<Omit<Post, 'created_at'>> = ({
         <div className="my-3 flex justify-center">
           {(isLoadingAvatar || isLoadingPost) && <Spinner />}
         </div>
+        <ChatAlt2Icon
+          data-testid="open-comments"
+          className="ml-2 h-6 w-6 cursor-pointer text-blue-500"
+          onClick={() => setOpenComments((prevBool) => !prevBool)}
+        />
+        {openComments && (
+          <ErrorBoundary
+            fallback={
+              <ExclamationCircleIcon className="my-5 h-10 w-10 text-pink-500" />
+            }
+          >
+            <Suspense
+              fallback={
+                <div className="flex justify-center">
+                  <Spinner />
+                </div>
+              }
+            >
+              <div className="flex justify-center">
+                <Comments postId={id} />
+              </div>
+            </Suspense>
+          </ErrorBoundary>
+        )}
       </li>
     </>
   )
