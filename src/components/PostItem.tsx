@@ -9,6 +9,7 @@ import {
 import ChatAlt2Icon from '@heroicons/react/solid'
 import { ErrorBoundary } from 'react-error-boundary'
 import { Spinner } from './Spinner'
+import Comments from './Comments'
 import useStore from 'libs/zustand/store'
 import { useMutatePost } from 'hooks/useMutatePost'
 import { useQueryAvatar } from 'hooks/useQueryAvatar'
